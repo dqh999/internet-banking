@@ -1,0 +1,75 @@
+
+services:
+  mysql-db:
+    container_name: mysql-db
+    image: mysql:8.2.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Hop2005@
+      MYSQL_DATABASE: internet-banking-db
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - db-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pHop2005@" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api-gateway:
+    image: internet-banking/api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  auth-gateway:
+    image: internet-banking/auth-gateway
+    container_name: auth-gateway
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+
+  account-service:
+    image: internet-banking/account-gateway
+    container_name: account-service
+    ports:
+      - "8082:8082"
+    networks:
+      - app-network
+      -
+  transaction-service:
+    image: internet-banking/transaction-gateway
+    container_name: transaction-service
+    ports:
+      - "8083:8083"
+    networks:
+      - app-network
+
+  notification-service:
+    image: internet-banking/notification-gateway
+    container_name: notification-service
+    ports:
+      - "8084:8084"
+    networks:
+      - app-network
+
+volumes:
+  redis-data:
+  mysql-data:
+  mongo-data:
+  zookeeper-01-data:
+  kafka-broker-01-data:
+
+networks:
+  app-network:
+    driver: bridge
+  db-network:
+    driver: bridge
+  kafka-network:
+    driver: bridge

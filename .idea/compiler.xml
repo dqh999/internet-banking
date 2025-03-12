@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="core-banking-service" target="23" />
+      <module name="core-banking-service.main" target="23" />
+      <module name="core-banking-service.test" target="23" />
+      <module name="fund-transfer-service" target="23" />
+      <module name="fund-transfer-service.main" target="23" />
+      <module name="fund-transfer-service.test" target="23" />
+      <module name="user-service" target="23" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
